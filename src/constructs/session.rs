@@ -29,6 +29,13 @@ impl Session {
         }
     }
     pub fn create(&self) {
+        /*
+         * Commands
+         *   - tmux new-session -s x -d
+         *   - tmux new-session -s x -n sdfdsf -d
+         *
+         * */
+        // tmux new-session -s x -n sdfdsf -d
         let mut args = vec!["tmux", "new-session"];
 
         if let Some(directory) = self.root.as_ref() {
@@ -40,9 +47,11 @@ impl Session {
             args.push("-s");
             args.push(name);
         }
+        args.push("-d");
+        // args.push("");
 
-        args.push("-d"); // NOTE: -d is important. if it is not given, it tries to attach to the
-                         // ternimal, which is not present when we are using this binary to create the session.
+        // args.push("-d"); // NOTE: -d is important. if it is not given, it tries to attach to the
+        // ternimal, which is not present when we are using this binary to create the session.
 
         let output = Command::new("nohup").args(args).output().unwrap();
         if !output.status.success() {
@@ -53,6 +62,25 @@ impl Session {
         println!(
             "success, out: {}",
             String::from_utf8(output.stdout).unwrap()
-        )
+        );
+
+        let mut args = vec!["tmux", "new-window", "-n"];
+        let window_name = "my-window";
+        args.push(window_name);
+        if let Some(name) = self.name.as_ref() {
+            // args.push("-s");
+            args.push("-t");
+            args.push(name);
+        }
+        let output = Command::new("nohup").args(args).output().unwrap();
+        if !output.status.success() {
+            let err = String::from_utf8(output.stderr).unwrap();
+            println!("err: {}", err);
+            return;
+        }
+        println!(
+            "success, out: {}",
+            String::from_utf8(output.stdout).unwrap()
+        );
     }
 }

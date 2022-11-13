@@ -1,9 +1,9 @@
 use super::pane::Pane;
 
 pub struct Window {
-    name: Option<String>,
-    root: Option<String>,
-    panes: Option<Pane>,
+    pub name: Option<String>,
+    pub root: Option<String>,
+    pub panes: Option<Pane>,
 }
 
 impl Default for Window {
