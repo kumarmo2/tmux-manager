@@ -34,6 +34,12 @@ impl Window {
             args.push("-n");
             args.push(name);
         }
+
+        if let Some(root) = self.root.as_ref() {
+            args.push("-c");
+            args.push(root);
+        }
+
         args.push("-t");
         args.push(&session.name);
 
