@@ -1,12 +1,20 @@
+use serde::{Deserialize, Serialize};
 use std::process::Command;
 
 use super::window::Window;
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Session {
     pub name: String,
     windows: Option<Vec<Window>>,
     root: Option<String>,
+    // #[serde(skip)]
+    #[serde(default = "default_window_name")]
     default_window_name: String,
+}
+
+fn default_window_name() -> String {
+    "first".to_owned()
 }
 
 impl Session {

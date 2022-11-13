@@ -1,9 +1,11 @@
 use self::session::Session;
+use serde::{Deserialize, Serialize};
 
 mod pane;
 pub mod session;
 pub mod window;
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct State {
     sessions: Option<Vec<Session>>,
 }

@@ -1,7 +1,9 @@
+use serde::{Deserialize, Serialize};
 use std::process::Command;
 
 use super::{pane::Pane, session::Session};
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Window {
     pub name: Option<String>,
     pub root: Option<String>,
@@ -32,13 +34,6 @@ impl Window {
             args.push("-n");
             args.push(name);
         }
-        // let window_name = "my-window";
-        // args.push(window_name);
-        // if let Some(name) = self.name.as_ref() {
-        // // args.push("-s");
-        // args.push("-t");
-        // args.push(name);
-        // }
         args.push("-t");
         args.push(&session.name);
 
