@@ -1,0 +1,20 @@
+sessions:
+  - name: spad
+    windows:
+      - name: home
+        root: /home/manya/
+  - name: code
+    windows:
+      - name: rust
+        root: /home/manya/code/rust/
+      - name: go
+        root: /home/manya/code/go/
+      - name: js
+        root: /home/manya/code/js/
+  - name: conf
+    windows:
+      - name: configs
+        root: /home/manya/configs
+      - name: nvim-conf
+        root: /home/manya/configs/nvim
+
