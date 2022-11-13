@@ -14,8 +14,9 @@ fn main() {
     let window = Window::new("my-window-2".to_owned());
     session.add_window(window);
 
-    let mut sessions = vec![session];
+    // let mut sessions = vec![session];
 
+    let mut state = State::with_session(session);
     let mut session = Session::new("y".to_owned(), "/home/manya/configs".to_owned());
 
     let window = Window::new("my-window".to_owned());
@@ -24,8 +25,13 @@ fn main() {
     let window = Window::new("my-window-2".to_owned());
     session.add_window(window);
 
-    sessions.push(session);
-    let state = State::new(sessions);
+    state.add_session(session);
 
-    state.create();
+    let Err(err) =  state.create() else {
+        return;
+    };
+    println!(
+        "error occured while creating the tmux sessions, err: {}",
+        err
+    );
 }
