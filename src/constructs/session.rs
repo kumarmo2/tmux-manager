@@ -63,6 +63,7 @@ impl Session {
             "success, out: {}",
             String::from_utf8(output.stdout).unwrap()
         );
+        // TODO: remove all these hardcodings and refactor window creation.
 
         let mut args = vec!["tmux", "new-window", "-n"];
         let window_name = "my-window";
