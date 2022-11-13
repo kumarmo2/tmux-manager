@@ -1,3 +1,3 @@
 mod pane;
-mod session;
+pub mod session;
 mod window;
