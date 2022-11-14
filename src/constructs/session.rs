@@ -64,10 +64,6 @@ impl Session {
             println!("err: {}", err);
             return;
         }
-        println!(
-            "success, out: {}",
-            String::from_utf8(output.stdout).unwrap()
-        );
 
         let Some(windows) = self.windows.as_ref() else {
             return;

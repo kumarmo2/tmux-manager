@@ -1,7 +1,5 @@
 mod constructs;
 
-use constructs::session::Session;
-use constructs::window::Window;
 use constructs::State;
 
 // TODO: add check that windows name shouldn't be duplicate.
@@ -18,7 +16,6 @@ fn main() {
         }
     };
 
-    println!("content: {}", content);
     let state = match serde_yaml::from_str::<State>(&content) {
         Err(err) => {
             println!("errr while deserializing config file: {}", err);
@@ -27,6 +24,5 @@ fn main() {
         Ok(x) => x,
     };
 
-    println!("state: {:?}", state);
     state.create().unwrap();
 }

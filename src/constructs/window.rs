@@ -40,8 +40,13 @@ impl Window {
             args.push(root);
         }
 
-        args.push("-t");
-        args.push(&session.name);
+        args.push("-a"); //creates window after
+
+        args.push("-t"); // -t <session-name>:  this will create a window in the session-name.
+                         // NOTE: notice : after the session name. It is important to give.
+        let mut target = session.name.to_owned();
+        target.push_str(":"); // NOTE: notice : after the session name. It is important to give.
+        args.push(&target);
 
         let output = Command::new("nohup").args(args).output().unwrap();
         if !output.status.success() {
@@ -49,9 +54,5 @@ impl Window {
             println!("err: {}", err);
             return;
         }
-        println!(
-            "success, out: {}",
-            String::from_utf8(output.stdout).unwrap()
-        );
     }
 }
