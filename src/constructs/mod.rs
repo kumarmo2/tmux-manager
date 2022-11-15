@@ -1,3 +1,5 @@
+use crate::Cli;
+
 use self::session::Session;
 use serde::{Deserialize, Serialize};
 
@@ -29,13 +31,13 @@ impl State {
         self.sessions.as_mut().unwrap().push(session);
     }
 
-    pub fn create(&self) -> Result<(), String> {
+    pub fn create(&self, cli: &Cli) -> Result<(), String> {
         let Some(sessions) = &self.sessions else {
             return Err("Please provide some session".to_owned());
         };
 
         for session in sessions {
-            session.create();
+            session.create(cli);
         }
         Ok(())
     }
