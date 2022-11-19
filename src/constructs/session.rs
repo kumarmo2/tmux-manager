@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
-use std::process::Command;
+use std::{process::Command, vec};
+
+use crate::Cli;
 
 use super::window::Window;
 
@@ -34,7 +36,7 @@ impl Session {
         }
         self.windows.as_mut().unwrap().push(window);
     }
-    pub fn create(&self) {
+    pub fn create(&self, cli: &Cli) {
         /*
          * Commands
          *   - tmux new-session -s x -d
@@ -42,6 +44,12 @@ impl Session {
          *
          *   - tmux new-session -s x -n sdfdsf -d
          * */
+
+        if let true = cli.force_restart_session {
+            let kill_session_args = vec!["tmux", "kill-session", "-t", &self.name];
+            if let Err(_) = Command::new("nohup").args(kill_session_args).status() {}
+        }
+
         let mut args = vec!["tmux", "new-session"];
 
         if let Some(directory) = self.root.as_ref() {
